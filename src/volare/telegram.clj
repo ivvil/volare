@@ -23,6 +23,13 @@
   [id]
   (reset! update-id id))
 
+(defn handle-msg
+  [bot msg]
+  (let [chat-id (get-in msg [:message :chat :id])
+        text (get-in msg [:message :text])]
+    (log/info "Received message:" text)
+    (tbot/send-message bot chat-id (str "You said: " text))))
+
 (defn run-bot
   "Process messages"
   [bot]
@@ -42,9 +49,8 @@
       (Thread/sleep (:sleep conf)))
     (recur)))
 
-(defn handle-msg
-  [bot msg]
-  (let [chat-id (get-in msg [:message :chat :id])
-        text (get-in msg [:message :text])]
-    (log/info "Received message:" text)
-    (tbot/send-message bot chat-id (str "You said: " text))))
+
+(defn -main
+  []
+  (let [bot (tbot/create "key")]
+    (run-bot bot)))
