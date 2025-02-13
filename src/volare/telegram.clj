@@ -2,7 +2,6 @@
   (:require [telegrambot-lib.core :as tbot]
             [clojure.tools.logging :as log]))
 
-
 (def conf
   {:sleep 10000})
 

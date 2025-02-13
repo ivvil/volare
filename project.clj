@@ -7,5 +7,8 @@
                  [telegrambot-lib "2.15.0"]
                  [cheshire "5.13.0"]
                  [environ "1.2.0"]
-                 [org.clojure/tools.logging "1.3.0"]]
+                 [org.clojure/tools.logging "1.3.0"]
+                 [com.github.seancorfield/next.jdbc "1.3.994"]
+                 [org.xerial/sqlite-jdbc "3.49.0.0"]
+                 [clj-http "3.13.0"]]
   :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"])
