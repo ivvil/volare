@@ -47,7 +47,7 @@
                      destiny_date_start DATETIME NOT NULL,
                      destiny_date_end DATETIME NOT NULL,
                      class INTEGER NOT NULL,
-                     passengers_adults INTEGER NOT NULL,
+                     passenger_adults INTEGER NOT NULL,
                      passenger_children INTEGER NOT NULL,
                      passenger_infants INTEGER NOT NULL,
                      passenger_infants_lap INTEGER NOT NULL,
