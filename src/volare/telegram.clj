@@ -5,6 +5,18 @@
 (def conf
   {:sleep 10000})
 
+(def commands
+  {:start {:description "Start session"
+           :handler (fn [bot msj _args]
+                      (let [chat-id (get-in msj [:message :chat :id])]
+                        (tbot/send-message bot chat-id "big chungus")))}})
+
+(defn- register-commands [bot]
+  (let [command-list (map (fn [[cmd {:keys [description]}]] 
+                            {:command (name cmd) :description description})
+                          commands)]
+    (tbot/set-my-commands bot {:commands command-list})))
+
 (defn poll-updates
   ([bot]
    (poll-updates bot nil))
@@ -41,7 +53,7 @@
           messages (:result updates)]
       (doseq [msg messages]
         (handle-msg bot msg)
-        
+
         (-> msg
             :update_id
             inc
@@ -49,8 +61,8 @@
       (Thread/sleep (:sleep conf)))
     (recur)))
 
-
 (defn -main
   []
   (let [bot (tbot/create "key")]
+    (register-commands bot)
     (run-bot bot)))
