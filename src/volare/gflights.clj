@@ -2,17 +2,10 @@
   (:require [clj-http.client :as client]
             [clojure.string :as str]))
 
-(def api-baseurl "https://serpapi.com/search")
+(def api-baseurl "https://serpapi.com/search.json")
 
-(defn build-query
-  [url params]
-  (let [query-str (str/join "&" (map (fn [[k v]]
-                                       (str (name k) "=" v))
-                                     params))]
-    (str url "?" query-str)))
-
-(defn run-db-query
-  [query]
+(defn build-db-query
+  [query api-key]
   {:departure_id (:origin query)
    :arrival_id (:destiny query)
    :travel_class (:class query)
@@ -23,4 +16,10 @@
    :stops (:stops query)
    :bags (:bags query)
    :outbound_date (:origin_date_start query)
-   :return_date (:destiny_date_end query)})
+   :return_date (:destiny_date_end query)
+   :api-key api-key
+   :engine "google_flights"})
+
+(defn run-query
+  [query]
+  (client/get api-baseurl {:accept :json :query-params query :as :reader}))
